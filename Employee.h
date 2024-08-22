@@ -10,17 +10,17 @@ private:
     QString firstName;
     QString surname;
     Payment* payment;
-    const static int nextID = 1001;
+    static int nextID;
 
 public:
     Employee(QString fn, QString sn);
     Employee(const Employee& e);
     ~Employee();
 
-    int getID();
-    QString getName();
+    int getID() const;
+    QString getName() const;
     void setPayment(Payment* pay);
-    Payment* getPayment();
+    Payment* getPayment() const;
 };
 
 #endif // EMPLOYEE_H

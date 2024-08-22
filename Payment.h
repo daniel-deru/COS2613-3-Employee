@@ -9,8 +9,9 @@ protected:
 
 public:
     Payment(QString typ);
+    virtual ~Payment() = 0;
 
-    QString getType();
+    QString getType() const;
     virtual double pay() = 0;
 };
 
