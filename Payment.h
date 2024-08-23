@@ -9,10 +9,12 @@ protected:
 
 public:
     Payment(QString typ);
+    Payment(Payment& p);
     virtual ~Payment() = 0;
 
     QString getType() const;
     virtual double pay() = 0;
+    virtual Payment* clone() const = 0;
 };
 
 #endif // PAYMENT_H

@@ -9,8 +9,11 @@ private:
 
 public:
     Salary(double sal);
+    Salary(const Salary& s);
 
     double pay() override;
+    Payment* clone() const override;
+
 };
 
 #endif // SALARY_H

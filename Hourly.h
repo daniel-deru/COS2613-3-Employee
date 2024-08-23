@@ -10,9 +10,11 @@ private:
 
 public:
     Hourly(double hr);
+    Hourly(const Hourly& h);
 
     void addHours(double hrs);
     double pay() override;
+    Payment* clone() const override;
 };
 
 #endif // HOURLY_H

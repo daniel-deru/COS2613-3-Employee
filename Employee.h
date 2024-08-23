@@ -21,6 +21,7 @@ public:
     QString getName() const;
     void setPayment(Payment* pay);
     Payment* getPayment() const;
+
 };
 
 #endif // EMPLOYEE_H

@@ -8,11 +8,12 @@
 
 void showPaymentReport(const EmployeeList& employeelist);
 
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    EmployeeList employees;
+    EmployeeList employees = EmployeeList();
 
     Employee dave = Employee("dave", "brit");
     Salary davePayment = Salary(3000);
@@ -20,44 +21,71 @@ int main(int argc, char *argv[])
     employees.append(dave);
 
     Employee sara = Employee("sara", "can");
-    //Salary saraPayment = Salary(3500);
-    //sara.setPayment(&saraPayment);
-    //employees.append(sara);
+    Salary saraPayment = Salary(3500);
+    sara.setPayment(&saraPayment);
+    employees.append(sara);
 
 
     Employee john = Employee("john", "doe");
-    // Hourly* johnPayment = new Hourly(3.5);
-    // johnPayment->addHours(30);
-    // john.setPayment(johnPayment);
-    // employees.append(john);
+    Hourly johnPayment = Hourly(23);
+    johnPayment.addHours(120);
+    john.setPayment(&johnPayment);
+    employees.append(john);
 
     Employee jane = Employee("jane", "doe");
-    // Hourly* janePayment = new Hourly(4);
-    // janePayment->addHours(25);
-    // jane.setPayment(janePayment);
-    // employees.append(jane);
+    Hourly janePayment = Hourly(26);
+    janePayment.addHours(160);
+    jane.setPayment(&janePayment);
+    employees.append(jane);
 
     Employee bob = Employee("bob", "smith");
-    // Commission* bobCommission = new Commission(0.1);
-    // bobCommission->addSales(10000);
-    // bob.setPayment(bobCommission);
-    // employees.append(bob);
+    Commission bobCommission = Commission(0.04);
+    bobCommission.addSales(100000);
+    bob.setPayment(&bobCommission);
+    employees.append(bob);
 
-    Employee monica = Employee("monica", "willis");
-    // Commission* monicaCommission = new Commission(0.12);
-    // monicaCommission->addSales(12000);
-    // monica.setPayment(monicaCommission);
-    // employees.append(monica);
+    Employee monica = Employee("gene", "may");
+    Commission monicaCommission = Commission(0.03);
+    monicaCommission.addSales(120000);
+    monica.setPayment(&monicaCommission);
+    employees.append(monica);
 
-    // showPaymentReport(employees);
+    showPaymentReport(employees);
 
     return a.exec();
 }
 
 void showPaymentReport(const EmployeeList& employeelist) {
-    for(Employee emp: employeelist) {
-        std::cout << "Name: " << emp.getName().toStdString() << "\t";
-        std::cout << "Type: " << emp.getPayment()->getType().toStdString() << "\t";
+
+    EmployeeList salariedEmployees = EmployeeList();
+    EmployeeList commissionEmployees = EmployeeList();
+    EmployeeList hourlyEmployees = EmployeeList();
+
+    for(const Employee& emp: employeelist) {
+
+        if(emp.getPayment()->getType() == "salary") salariedEmployees.append(emp);
+        if(emp.getPayment()->getType() == "commission") commissionEmployees.append(emp);
+        if(emp.getPayment()->getType() == "hourly") hourlyEmployees.append(emp);
+    }
+
+    std::cout << "\nSalaried Employees\n" << std::endl;
+    for(const Employee& emp: salariedEmployees) {
+        std::cout << "Name: " << emp.getName().toStdString() << "\t\t";
+        std::cout << "Type: " << emp.getPayment()->getType().toStdString() << "\t\t";
+        std::cout << "Amount: " << emp.getPayment()->pay() << std::endl;
+    }
+
+    std::cout << "\nCommission Employees\n" << std::endl;
+    for(const Employee& emp: commissionEmployees) {
+        std::cout << "Name: " << emp.getName().toStdString() << "\t\t";
+        std::cout << "Type: " << emp.getPayment()->getType().toStdString() << "\t\t";
+        std::cout << "Amount: " << emp.getPayment()->pay() << std::endl;
+    }
+
+    std::cout << "\nHourly Employees\n" << std::endl;
+    for(const Employee& emp: hourlyEmployees) {
+        std::cout << "Name: " << emp.getName().toStdString() << "\t\t";
+        std::cout << "Type: " << emp.getPayment()->getType().toStdString() << "\t\t";
         std::cout << "Amount: " << emp.getPayment()->pay() << std::endl;
     }
 }

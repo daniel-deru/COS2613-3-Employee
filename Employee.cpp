@@ -8,7 +8,7 @@ Employee::Employee(const Employee& e) {
     firstName = e.firstName;
     surname = e.surname;
     id = e.id;
-    payment = e.payment;
+    payment = e.payment->clone();
 }
 
 Employee::~Employee() {
